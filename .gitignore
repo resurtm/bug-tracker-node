@@ -31,3 +31,7 @@ npm-debug.log
 
 # IntelliJ IDEA IDE
 .idea
+
+# Built SASS files
+public/stylesheets/*.map
+public/stylesheets/*.css
