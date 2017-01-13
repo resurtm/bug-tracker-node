@@ -24,6 +24,10 @@ export default {
                 },
             },
             {
+                test: /\.vue$/,
+                loader: 'vue-loader',
+            },
+            {
                 test: /\.scss$/,
                 loader: ExtractTextPlugin.extract(['css-loader', 'sass-loader']),
             },

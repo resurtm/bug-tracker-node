@@ -23,6 +23,8 @@
     "sass-loader": "^4.1.1",
     "url-loader": "^0.5.7",
     "vue": "^2.1.8",
+    "vue-loader": "^10.0.2",
+    "vue-template-compiler": "^2.1.8",
     "vuex": "^2.1.1",
     "webpack": "^1.14.0"
   },
