@@ -19,6 +19,7 @@
     "nodemon": "^1.11.0",
     "sass-loader": "^4.1.1",
     "url-loader": "^0.5.7",
+    "vue": "^2.1.8",
     "webpack": "^1.14.0"
   },
   "scripts": {

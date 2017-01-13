@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 import express from 'express';
 
 import indexRouter from './routes/index';
-import usersRouter from './routes/users';
 
 dotenv.config();
 
@@ -17,7 +16,6 @@ app.set('view engine', 'pug');
 app.use(express.static('public'));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
 var server = http.createServer(app);
 server.on('error', error => {
