@@ -27,14 +27,14 @@
     "webpack": "^1.14.0"
   },
   "scripts": {
-    "clean": "rm -rfv ./build/*",
+    "clean": "rm -rfv ./build/*; rm -rfv ./public/build/*",
     "build-server": "./node_modules/.bin/babel --source-maps true --out-dir ./build ./server",
-    "build": "yarn run clean && yarn run build-server",
+    "build": "yarn run clean && yarn run build-server && yarn run build-assets",
     "start": "node ./build/index.js",
     "start-debug": "node --debug ./build/index.js",
     "start-dev": "./node_modules/.bin/nodemon ./build/index.js",
     "watch-dev": "./node_modules/.bin/babel --source-maps true --out-dir ./build ./server --watch",
-    "build-assets": "./node_modules/webpack/bin/webpack.js",
-    "watch-assets": "./node_modules/webpack/bin/webpack.js --watch"
+    "build-assets": "./node_modules/webpack/bin/webpack.js --progress --profile --colors",
+    "watch-assets": "./node_modules/webpack/bin/webpack.js --progress --profile --colors --watch"
   }
 }

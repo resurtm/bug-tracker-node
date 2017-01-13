@@ -6,8 +6,8 @@ export default {
     target: 'web',
     debug: true,
     entry: [
-        path.resolve(__dirname, 'assets/sass/main.scss'),
-        path.resolve(__dirname, 'assets/js/main.js'),
+        path.resolve(__dirname, 'app/sass/main.scss'),
+        path.resolve(__dirname, 'app/js/main.js'),
     ],
     output: {
         path: path.resolve(__dirname, 'public/build'),
