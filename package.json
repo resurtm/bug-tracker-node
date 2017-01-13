@@ -3,7 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "author": "resurtm <resurtm@gmail.com>",
-  "dependencies": {},
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "express": "^4.14.0",
+    "pug": "^2.0.0-beta6"
+  },
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-preset-env": "^1.1.8"
@@ -14,6 +18,6 @@
     "build": "yarn run clean && yarn run build-server",
     "start": "node ./build/index.js",
     "start-debug": "node --debug ./build/index.js",
-    "start-dev": "./node_modules/.bin/babel-node ./build/index.js"
+    "start-dev": "./node_modules/.bin/babel-node ./server/index.js"
   }
 }
