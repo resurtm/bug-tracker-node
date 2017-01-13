@@ -11,15 +11,25 @@
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-preset-env": "^1.1.8",
-    "nodemon": "^1.11.0"
+    "bootstrap-sass": "^3.3.7",
+    "css-loader": "^0.26.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "node-sass": "^4.3.0",
+    "nodemon": "^1.11.0",
+    "sass-loader": "^4.1.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.14.0"
   },
   "scripts": {
     "clean": "rm -rfv ./build/*",
-    "build-server": "./node_modules/.bin/babel --out-dir ./build ./server --source-maps true",
+    "build-server": "./node_modules/.bin/babel --source-maps true --out-dir ./build ./server",
     "build": "yarn run clean && yarn run build-server",
     "start": "node ./build/index.js",
     "start-debug": "node --debug ./build/index.js",
     "start-dev": "./node_modules/.bin/nodemon ./build/index.js",
-    "watch-dev": "./node_modules/.bin/babel --out-dir ./build ./server --source-maps true --watch"
+    "watch-dev": "./node_modules/.bin/babel --source-maps true --out-dir ./build ./server --watch",
+    "build-assets": "./node_modules/webpack/bin/webpack.js",
+    "watch-assets": "./node_modules/webpack/bin/webpack.js --watch"
   }
 }

@@ -9,9 +9,12 @@ import usersRouter from './routes/users';
 dotenv.config();
 
 var app = express();
+
 app.set('port', process.env.EXPRESS_PORT || 3000);
 app.set('views', path.join(__dirname, '..', 'views'));
 app.set('view engine', 'pug');
+
+app.use(express.static('public'));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
