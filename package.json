@@ -2,19 +2,18 @@
   "name": "bug-tracker-node",
   "version": "0.0.0",
   "private": true,
-  "scripts": {
-    "start": "node ./bin/www"
+  "author": "resurtm <resurtm@gmail.com>",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-env": "^1.1.8"
   },
-  "dependencies": {
-    "body-parser": "~1.15.2",
-    "bootstrap-sass": "^3.3.7",
-    "cookie-parser": "~1.4.3",
-    "debug": "~2.2.0",
-    "express": "~4.14.0",
-    "jquery": "^2.2.4",
-    "morgan": "~1.7.0",
-    "node-sass-middleware": "0.9.8",
-    "pug": "~2.0.0-beta6",
-    "serve-favicon": "~2.3.0"
+  "scripts": {
+    "clean": "rm -rfv ./build/*",
+    "build-server": "./node_modules/.bin/babel --out-dir ./build ./server --source-maps true",
+    "build": "yarn run clean && yarn run build-server",
+    "start": "node ./build/index.js",
+    "start-debug": "node --debug ./build/index.js",
+    "start-dev": "./node_modules/.bin/babel-node ./build/index.js"
   }
 }
