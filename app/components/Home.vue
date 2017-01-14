@@ -1,16 +1,21 @@
 <template>
     <div>
         <p>Home</p>
-        <p>Clicked: {{ $store.state.count }} times, count is {{ evenOrOdd }}.</p>
+        <p>Clicked: {{ count }} times, count is {{ evenOrOdd }}.</p>
     </div>
 </template>
 
 <script>
-    import {mapGetters} from 'vuex';
+    import {mapState, mapGetters} from 'vuex';
 
     export default {
-        computed: mapGetters([
-            'evenOrOdd',
-        ]),
+        computed: {
+            ...mapState([
+                'count',
+            ]),
+            ...mapGetters([
+                'evenOrOdd',
+            ]),
+        }
     };
 </script>
