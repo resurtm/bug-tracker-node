@@ -1,8 +1,5 @@
 export const mutations = {
-    INCREMENT: 'INCREMENT',
-    DECREMENT: 'DECREMENT',
-
-    CHANGE_QUOTE: 'CHANGE_QUOTE',
+    MARK_CONTACT_FORM_AS_SENT: 'MARK_CONTACT_FORM_AS_SENT',
 };
 
 export const actions = {

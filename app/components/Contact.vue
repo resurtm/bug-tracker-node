@@ -1,30 +1,28 @@
 <template>
     <form id="contact-component" class="col-md-6 col-md-offset-3" @submit.prevent="submitForm">
         <h1>Contact Us</h1>
-        <div class="form-group" v-bind:class="{'has-error': formErrors.email.length > 0}">
+        <div class="form-group" v-bind:class="{'has-error': errors.email.length > 0}">
             <label for="contact-email" class="control-label">Email address</label>
-            <input type="email" class="form-control" id="contact-email" placeholder="Email" v-model="formData.email"
-                   @input="onChange"/>
+            <input type="email" class="form-control" id="contact-email" placeholder="Email" v-model="data.email"/>
             <span class="help-block">
-                <span v-for="error in formErrors.email">{{error}}<br/></span>
+                <span v-for="error in errors.email">{{error}}<br/></span>
             </span>
         </div>
 
-        <div class="form-group" v-bind:class="{'has-error': formErrors.name.length > 0}">
+        <div class="form-group" v-bind:class="{'has-error': errors.name.length > 0}">
             <label for="contact-name" class="control-label">Your name</label>
-            <input type="email" class="form-control" id="contact-name" placeholder="Name" v-model="formData.name"
-                   @input="onChange"/>
+            <input type="text" class="form-control" id="contact-name" placeholder="Name" v-model="data.name"/>
             <span class="help-block">
-                <span v-for="error in formErrors.name">{{error}}<br/></span>
+                <span v-for="error in errors.name">{{error}}<br/></span>
             </span>
         </div>
 
-        <div class="form-group" v-bind:class="{'has-error': formErrors.message.length > 0}">
+        <div class="form-group" v-bind:class="{'has-error': errors.message.length > 0}">
             <label for="contact-message" class="control-label">Message to us</label>
             <textarea rows="5" class="form-control" id="contact-message" placeholder="Message"
-                      v-model="formData.message" @input="onChange"></textarea>
+                      v-model="data.message"></textarea>
             <span class="help-block">
-                <span v-for="error in formErrors.message">{{error}}<br/></span>
+                <span v-for="error in errors.message">{{error}}<br/></span>
             </span>
         </div>
 
@@ -34,13 +32,13 @@
             <p class="help-block">Please attach any file you think would be useful for this inquiry.</p>
         </div>
 
-        <div class="checkbox" v-bind:class="{'has-error': formErrors.sendCopy.length > 0}">
+        <div class="checkbox" v-bind:class="{'has-error': errors.sendCopy.length > 0}">
             <label class="control-label">
-                <input type="checkbox" v-model="formData.sendCopy" @input="onChange"/>
+                <input type="checkbox" v-model="data.sendCopy"/>
                 Send copy of the message to my email
             </label>
             <span class="help-block">
-                <span v-for="error in formErrors.sendCopy">{{error}}<br/></span>
+                <span v-for="error in errors.sendCopy">{{error}}<br/></span>
             </span>
         </div>
 
@@ -49,8 +47,8 @@
 </template>
 
 <script>
-    import {mapActions} from 'vuex';
-    import {actions as actionTypes} from '../types'
+    import {mapMutations} from 'vuex';
+    import {mutations as mutationTypes} from '../types'
     import validate from 'validate.js';
 
     const validationRules = {
@@ -87,43 +85,57 @@
     export default {
         data() {
             return {
-                formData: {
+                data: {
                     email: '',
                     name: '',
                     message: '',
                     sendCopy: false,
                 },
-                formChanged: false,
+                errors: {
+                    email: [],
+                    name: [],
+                    message: [],
+                    sendCopy: [],
+                },
+                hasErrors: false,
             };
         },
-        computed: {
-            formErrors() {
-                let errors = [];
-                if (this.$data.formChanged) {
-                    errors = validate(this.$data.formData, validationRules);
-                    if (typeof errors === 'undefined') {
-                        errors = [];
-                    }
-                    for (let i in this.$data.formData) {
-                        if (!(i in errors)) {
-                            errors[i] = [];
-                        }
-                    }
-                } else {
-                    for (let i in this.$data.formData) {
-                        errors[i] = [];
-                    }
-                }
-                return errors;
+        watch: {
+            ['data.email']() {
+                this.validateForm();
+            },
+            ['data.name']() {
+                this.validateForm();
+            },
+            ['data.message']() {
+                this.validateForm();
+            },
+            ['data.sendCopy']() {
+                this.validateForm();
             },
         },
         methods: {
-            onChange() {
-                this.$data.formChanged = true;
+            validateForm() {
+                this.$data.errors = validate(this.$data.data, validationRules);
+                this.$data.hasErrors = typeof this.$data.errors !== 'undefined';
+                if (!this.$data.hasErrors) {
+                    this.$data.errors = [];
+                }
+                for (let i in this.$data.data) {
+                    if (!(i in this.$data.errors)) {
+                        this.$data.errors[i] = [];
+                    }
+                }
             },
             submitForm() {
-
+                this.validateForm();
+                if (!this.$data.hasErrors) {
+                    this[mutationTypes.MARK_CONTACT_FORM_AS_SENT]();
+                }
             },
+            ...mapMutations([
+                mutationTypes.MARK_CONTACT_FORM_AS_SENT,
+            ]),
         },
     };
 </script>
