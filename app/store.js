@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import {mutations as mutationTypes, actions as actionTypes} from './types'
 
 Vue.use(Vuex);
 
@@ -8,28 +9,24 @@ const state = {
 };
 
 const mutations = {
-    increment (state) {
-        state.count++;
-    },
-    decrement (state) {
-        state.count--;
-    },
+    [mutationTypes.INCREMENT]: (state) => state.count++,
+    [mutationTypes.DECREMENT]: (state) => state.count--,
 };
 
 const actions = {
-    increment: ({commit}) => commit('increment'),
-    decrement: ({commit}) => commit('decrement'),
-    incrementIfOdd ({commit, state}) {
+    [actionTypes.INCREMENT]: ({commit}) => commit(mutationTypes.INCREMENT),
+    [actionTypes.DECREMENT]: ({commit}) => commit(mutationTypes.DECREMENT),
+    [actionTypes.INCREMENT_IF_ODD] ({commit, state}) {
         if ((state.count + 1) % 2 === 0) {
-            commit('increment');
+            commit(mutationTypes.INCREMENT);
         }
     },
-    incrementAsync ({commit}) {
+    [actionTypes.INCREMENT_ASYNC] ({commit}) {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                commit('increment');
+                commit(mutationTypes.INCREMENT);
                 resolve();
-            }, 1000);
+            }, 2000);
         });
     },
 };

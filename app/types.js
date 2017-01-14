@@ -1,0 +1,11 @@
+export const mutations = {
+    INCREMENT: 'INCREMENT',
+    DECREMENT: 'DECREMENT',
+};
+
+export const actions = {
+    INCREMENT: 'INCREMENT',
+    DECREMENT: 'DECREMENT',
+    INCREMENT_IF_ODD: 'INCREMENT_IF_ODD',
+    INCREMENT_ASYNC: 'INCREMENT_ASYNC',
+};
