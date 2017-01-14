@@ -4,9 +4,11 @@
   "private": true,
   "author": "resurtm <resurtm@gmail.com>",
   "dependencies": {
+    "axios": "^0.15.3",
     "dotenv": "^4.0.0",
     "express": "^4.14.0",
-    "pug": "^2.0.0-beta6"
+    "pug": "^2.0.0-beta6",
+    "sleep": "^5.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
@@ -23,6 +25,7 @@
     "nodemon": "^1.11.0",
     "sass-loader": "^4.1.1",
     "url-loader": "^0.5.7",
+    "validate.js": "^0.11.1",
     "vue": "^2.1.8",
     "vue-loader": "^10.0.2",
     "vue-router": "^2.1.1",

@@ -1,6 +1,8 @@
 export const mutations = {
     INCREMENT: 'INCREMENT',
     DECREMENT: 'DECREMENT',
+
+    CHANGE_QUOTE: 'CHANGE_QUOTE',
 };
 
 export const actions = {
@@ -8,4 +10,6 @@ export const actions = {
     DECREMENT: 'DECREMENT',
     INCREMENT_IF_ODD: 'INCREMENT_IF_ODD',
     INCREMENT_ASYNC: 'INCREMENT_ASYNC',
+
+    RECEIVE_QUOTE: 'RECEIVE_QUOTE',
 };
