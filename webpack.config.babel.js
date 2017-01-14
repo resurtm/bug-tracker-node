@@ -7,7 +7,7 @@ export default {
     debug: true,
     entry: [
         path.resolve(__dirname, 'app/sass/main.scss'),
-        path.resolve(__dirname, 'app/js/main.js'),
+        path.resolve(__dirname, 'app/main.js'),
     ],
     output: {
         path: path.resolve(__dirname, 'public/build'),
