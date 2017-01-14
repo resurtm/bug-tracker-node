@@ -9,9 +9,6 @@
                     <li>
                         <router-link to="/contact-us">Contact Us</router-link>
                     </li>
-                    <li>
-                        <router-link to="/quote">Quote</router-link>
-                    </li>
                 </ul>
             </div>
         </nav>

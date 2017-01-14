@@ -1,21 +1,9 @@
 <template>
-    <div>
-        <p>Home</p>
-        <p>Clicked: {{ count }} times, count is {{ evenOrOdd }}.</p>
+    <div id="contact-component" class="col-md-12">
+        <h1>Home</h1>
     </div>
 </template>
 
 <script>
-    import {mapState, mapGetters} from 'vuex';
-
-    export default {
-        computed: {
-            ...mapState([
-                'count',
-            ]),
-            ...mapGetters([
-                'evenOrOdd',
-            ]),
-        }
-    };
+    export default {};
 </script>
