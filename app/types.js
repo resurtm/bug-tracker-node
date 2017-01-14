@@ -2,11 +2,4 @@ export const mutations = {
     MARK_CONTACT_FORM_AS_SENT: 'MARK_CONTACT_FORM_AS_SENT',
 };
 
-export const actions = {
-    INCREMENT: 'INCREMENT',
-    DECREMENT: 'DECREMENT',
-    INCREMENT_IF_ODD: 'INCREMENT_IF_ODD',
-    INCREMENT_ASYNC: 'INCREMENT_ASYNC',
-
-    RECEIVE_QUOTE: 'RECEIVE_QUOTE',
-};
+export const actions = {};

@@ -13,11 +13,9 @@ const mutations = {
     [mutationTypes.MARK_CONTACT_FORM_AS_SENT]: (state) => state.contactFormSent = true,
 };
 
-const actions = {
-};
+const actions = {};
 
-const getters = {
-};
+const getters = {};
 
 export default new Vuex.Store({
     state,
