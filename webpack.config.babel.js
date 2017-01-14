@@ -29,7 +29,10 @@ export default {
             },
             {
                 test: /\.scss$/,
-                loader: ExtractTextPlugin.extract(['css-loader', 'sass-loader']),
+                loader: ExtractTextPlugin.extract([
+                    'css-loader?sourceMap=true',
+                    'sass-loader?sourceMap=true',
+                ]),
             },
             {
                 test: /\.(png|gif|jpg|jpeg|svg|woff|woff2|eot|ttf)(.*)$/,
@@ -45,4 +48,5 @@ export default {
             'vue$': 'vue/dist/vue.common.js',
         },
     },
+    devtool: 'source-map',
 };
