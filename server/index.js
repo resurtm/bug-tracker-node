@@ -14,7 +14,7 @@ let app = express();
 
 app.set('port', process.env.EXPRESS_PORT || 3000);
 app.set('views', path.join(__dirname, '..', 'views'));
-app.set('view engine', 'pug');
+app.set('view engine', 'ejs');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));

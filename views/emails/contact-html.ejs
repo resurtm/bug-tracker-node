@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bug Tracker Node</title>
+</head>
+<body>
+    <h1>Bug Tracker Node</h1>
+    <p>New contact message has been sent. Please check details below:</p>
+    <table cellspacing="0" cellpadding="10" border="1">
+        <tr>
+            <td valign="top">Email</td>
+            <td valign="top"><%= email %></td>
+        </tr>
+        <tr>
+            <td valign="top">Name</td>
+            <td valign="top"><%= name %></td>
+        </tr>
+        <tr>
+            <td valign="top">Message</td>
+            <td valign="top"><%= message.replace(/\r\n/g, '<br/>') %></td>
+        </tr>
+        <tr>
+            <td valign="top">Copy sent to the sender</td>
+            <td valign="top"><%= sendCopy ? 'Yes' : 'No' %></td>
+        </tr>
+    </table>
+</body>
+</html>
