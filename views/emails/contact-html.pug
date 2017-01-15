@@ -1,0 +1,28 @@
+doctype html
+
+html(lang='en')
+
+    head
+        meta(charset='UTF-8')
+        meta(name='viewport' content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0')
+        meta(http-equiv='X-UA-Compatible' content='ie=edge')
+
+        title Bug Tracker Node
+
+    body
+        h1 Bug Tracker Node
+        p New contact message has been sent. Please check details below:
+
+        table(cellspacing=0 cellpadding=10 border=1)
+            tr
+                td(valign='top') Email
+                td(valign='top')= email
+            tr
+                td(valign='top') Name
+                td(valign='top')= name
+            tr
+                td(valign='top') Message
+                td(valign='top') !{pug.escape(message).replace(/\n/g, '<br/>')}
+            tr
+                td(valign='top') Send Copy
+                td(valign='top')= sendCopy ? 'Yes' : 'No'
