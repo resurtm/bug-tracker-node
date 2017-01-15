@@ -1,7 +1,8 @@
-import path from 'path';
-import http from 'http';
-import dotenv from 'dotenv';
-import express from 'express';
+import path from 'path'
+import http from 'http'
+import dotenv from 'dotenv'
+import express from 'express'
+import helmet from 'helmet'
 
 import indexRouter from './routes/index';
 
@@ -13,6 +14,7 @@ app.set('port', process.env.EXPRESS_PORT || 3000);
 app.set('views', path.join(__dirname, '..', 'views'));
 app.set('view engine', 'pug');
 
+app.use(helmet());
 app.use(express.static('public'));
 
 app.use('/', indexRouter);
