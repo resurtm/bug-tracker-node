@@ -4,10 +4,13 @@
             <div class="container">
                 <ul class="nav navbar-nav">
                     <li>
-                        <router-link to="/">Home</router-link>
+                        <router-link :to="{name: 'home'}">Home</router-link>
                     </li>
                     <li>
-                        <router-link to="/contact-us">Contact Us</router-link>
+                        <router-link :to="{name: 'contact'}">Contact Us</router-link>
+                    </li>
+                    <li>
+                        <router-link :to="{name: 'chat'}">Support Chat</router-link>
                     </li>
                 </ul>
             </div>

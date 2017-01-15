@@ -6,14 +6,17 @@ import store from './store'
 import App from './components/App.vue'
 import Home from './components/Home.vue'
 import Contact from './components/Contact.vue'
+import Chat from './components/Chat.vue'
 
 Vue.use(Vuex);
 Vue.use(VueRouter);
 
 const router = new VueRouter({
+    mode: 'history',
     routes: [
-        {path: '/', component: Home},
-        {path: '/contact-us', component: Contact},
+        {name: 'home', path: '/', component: Home},
+        {name: 'contact', path: '/contact-us', component: Contact},
+        {name: 'chat', path: '/chat', component: Chat},
     ],
 });
 
