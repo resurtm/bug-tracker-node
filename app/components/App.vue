@@ -16,7 +16,26 @@
             </div>
         </nav>
         <div class="container">
-            <router-view></router-view>
+            <preloader></preloader>
+            <div v-if="!workInProgress">
+                <router-view></router-view>
+            </div>
         </div>
     </div>
 </template>
+
+<script>
+    import {mapState} from 'vuex';
+    import Preloader from './Preloader.vue';
+
+    export default {
+        components: {
+            'preloader': Preloader
+        },
+        computed: {
+            ...mapState([
+                'workInProgress'
+            ])
+        }
+    };
+</script>

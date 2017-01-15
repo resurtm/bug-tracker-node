@@ -5,8 +5,13 @@
             Your message has been sent successfully.
         </div>
 
+        <preloader></preloader>
+
         <form @submit.prevent="submitForm" v-if="!contactFormSent">
             <h1>Contact Us</h1>
+
+            <p>Feel free to write us something!</p>
+
             <div class="form-group" v-bind:class="{'has-error': errors.email.length > 0}">
                 <label for="contact-email" class="control-label">Email address</label>
                 <input type="email" class="form-control" id="contact-email" placeholder="Email" v-model="data.email"/>
@@ -32,11 +37,11 @@
                 </span>
             </div>
 
-            <div class="form-group">
+            <!--<div class="form-group">
                 <label for="contact-file" class="control-label">Attachment file</label>
                 <input type="file" id="contact-file"/>
                 <p class="help-block">Please attach any file you think would be useful for this inquiry.</p>
-            </div>
+            </div>-->
 
             <div class="checkbox" v-bind:class="{'has-error': errors.sendCopy.length > 0}">
                 <label class="control-label">
@@ -55,8 +60,9 @@
 
 <script>
     import {mapState, mapMutations} from 'vuex';
-    import {mutations as mutationTypes} from '../types'
+    import axios from 'axios';
     import validate from 'validate.js';
+    import {mutations as mutationTypes} from '../types'
 
     const validationRules = {
         email: {
@@ -142,18 +148,22 @@
             submitForm() {
                 this.validateForm();
                 if (!this.$data.hasErrors) {
-                    this[mutationTypes.MARK_CONTACT_FORM_AS_SENT]();
+                    this[mutationTypes.BEGIN_WORK_IN_PROGRESS]();
+                    axios.post('/contact/send', this.$data.data).then(resp => {
+                        this[mutationTypes.END_WORK_IN_PROGRESS]();
+                        this[mutationTypes.MARK_CONTACT_FORM_AS_SENT]();
+                        console.log(resp);
+                    }).catch(err => {
+                        this[mutationTypes.END_WORK_IN_PROGRESS]();
+                        console.log(err);
+                    });
                 }
             },
             ...mapMutations([
+                mutationTypes.BEGIN_WORK_IN_PROGRESS,
+                mutationTypes.END_WORK_IN_PROGRESS,
                 mutationTypes.MARK_CONTACT_FORM_AS_SENT,
             ]),
         },
     };
 </script>
-
-<style lang="sass">
-    #contact-component h1 {
-        margin-bottom: 30px;
-    }
-</style>
