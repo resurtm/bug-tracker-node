@@ -17,9 +17,7 @@
         </nav>
         <div class="container">
             <preloader></preloader>
-            <div v-if="!workInProgress">
-                <router-view></router-view>
-            </div>
+            <router-view v-bind:class="{hide: workInProgress}"></router-view>
         </div>
     </div>
 </template>

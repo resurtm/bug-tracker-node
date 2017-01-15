@@ -42,7 +42,7 @@ let sendContactMessage = (req, res) => {
 
         transporter.sendMail(mailOptions, (err, info) => {
             if (err) {
-                reject(err);
+                reject(err.message);
             } else {
                 resolve(info);
             }
@@ -60,7 +60,7 @@ router.post('/send', (req, res, next) => {
         .catch(err => {
             console.log('Contact message send error:');
             console.log(err);
-            res.json({status: 'failed', message: err});
+            res.status(400).json({status: 'failed', message: err});
         });
 });
 

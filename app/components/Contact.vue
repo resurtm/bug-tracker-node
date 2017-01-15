@@ -5,7 +5,7 @@
             Your message has been sent successfully.
         </div>
 
-        <preloader></preloader>
+        <warning-alert :title="errorTitle" :message="errorMessage"></warning-alert>
 
         <form @submit.prevent="submitForm" v-if="!contactFormSent">
             <h1>Contact Us</h1>
@@ -63,60 +63,66 @@
     import axios from 'axios';
     import validate from 'validate.js';
     import {mutations as mutationTypes} from '../types'
+    import WarningAlert from './WarningAlert.vue'
 
     const validationRules = {
         email: {
             presence: true,
             length: {
                 minimum: 5,
-                maximum: 50,
+                maximum: 50
             },
-            email: true,
+            email: true
         },
         name: {
             presence: true,
             length: {
                 minimum: 2,
-                maximum: 50,
-            },
+                maximum: 50
+            }
         },
         message: {
             presence: true,
             length: {
                 minimum: 10,
-                maximum: 10000,
-            },
+                maximum: 10000
+            }
         },
         sendCopy: {
             presence: true,
             inclusion: {
-                within: [true, false],
-            },
-        },
+                within: [true, false]
+            }
+        }
     };
 
     export default {
+        components: {
+            warningAlert: WarningAlert
+        },
         data() {
             return {
                 data: {
                     email: '',
                     name: '',
                     message: '',
-                    sendCopy: false,
+                    sendCopy: false
                 },
                 errors: {
                     email: [],
                     name: [],
                     message: [],
-                    sendCopy: [],
+                    sendCopy: []
                 },
                 hasErrors: false,
+                errorTitle: '',
+                errorMessage: ''
             };
         },
         computed: {
             ...mapState([
-                'contactFormSent',
-            ]),
+                'contactFormSent'
+            ])
         },
         watch: {
             ['data.email']() {
@@ -130,7 +136,7 @@
             },
             ['data.sendCopy']() {
                 this.validateForm();
-            },
+            }
         },
         methods: {
             validateForm() {
@@ -149,21 +155,37 @@
                 this.validateForm();
                 if (!this.$data.hasErrors) {
                     this[mutationTypes.BEGIN_WORK_IN_PROGRESS]();
-                    axios.post('/contact/send', this.$data.data).then(resp => {
-                        this[mutationTypes.END_WORK_IN_PROGRESS]();
-                        this[mutationTypes.MARK_CONTACT_FORM_AS_SENT]();
-                        console.log(resp);
-                    }).catch(err => {
-                        this[mutationTypes.END_WORK_IN_PROGRESS]();
-                        console.log(err);
-                    });
+                    this.$data.errorTitle = '';
+                    this.$data.errorMessage = '';
+                    axios.post('/contact/send', this.$data.data, {
+                        validateStatus: (status) => {
+                            return status >= 200 && status < 300 || status == 400;
+                        }
+                    })
+                            .then(resp => {
+                                this[mutationTypes.END_WORK_IN_PROGRESS]();
+                                if (resp.data.status === 'ok') {
+                                    this[mutationTypes.MARK_CONTACT_FORM_AS_SENT]();
+                                } else {
+                                    this.$data.errorTitle = 'Oops!';
+                                    this.$data.errorMessage = resp.data.message;
+                                }
+                            })
+                            .catch(err => {
+                                this[mutationTypes.END_WORK_IN_PROGRESS]();
+                                this.$data.errorTitle = 'Oops!';
+                                this.$data.errorMessage = err.message;
+                            });
+                } else {
+                    this.$data.errorTitle = 'Sorry!';
+                    this.$data.errorMessage = 'Please fix validation errors';
                 }
             },
             ...mapMutations([
                 mutationTypes.BEGIN_WORK_IN_PROGRESS,
                 mutationTypes.END_WORK_IN_PROGRESS,
-                mutationTypes.MARK_CONTACT_FORM_AS_SENT,
-            ]),
-        },
+                mutationTypes.MARK_CONTACT_FORM_AS_SENT
+            ])
+        }
     };
 </script>
