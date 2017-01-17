@@ -2,7 +2,9 @@
     <div id="chat-component">
         <h1>Support Chat</h1>
 
-        <div class="row">
+        <nick-name-input v-bind:class="{hide: nickName.length > 0}" v-on:selected="nickNameSelected"></nick-name-input>
+
+        <div class="row" v-bind:class="{hide: nickName.length === 0}">
             <div class="col-md-9">
                 <textarea class="form-control" rows="16" v-model="messageHistoryText"></textarea>
             </div>
@@ -18,7 +20,8 @@
             </div>
         </div>
 
-        <form class="row compose-message" @submit.prevent="sendMessage">
+        <form class="row compose-message" @submit.prevent="sendMessage"
+              v-bind:class="{hide: nickName.length === 0}">
             <div class="col-md-9">
                 <input type="input" class="form-control" v-model="messageText"/>
             </div>
@@ -32,10 +35,15 @@
 
 <script>
     import socketio from 'socket.io-client'
+    import NickNameInput from './NickNameInput.vue'
 
     export default {
+        components: {
+            NickNameInput: NickNameInput
+        },
         data() {
             return {
+                nickName: '',
                 messageText: '',
                 messageHistory: [],
                 socketioClient: null
@@ -62,6 +70,9 @@
                 this.$data.socketioClient.emit('message', {messageText: this.$data.messageText});
                 this.$data.messageHistory.push(this.$data.messageText);
                 this.$data.messageText = '';
+            },
+            nickNameSelected(nickName) {
+                this.$data.nickName = nickName;
             }
         }
     };
