@@ -7,14 +7,14 @@ Vue.use(Vuex);
 
 const state = {
     workInProgress: false,
-    contactFormSent: false,
+    contactFormSent: false
 };
 
 const mutations = {
     [mutationTypes.BEGIN_WORK_IN_PROGRESS]: (state) => state.workInProgress = true,
     [mutationTypes.END_WORK_IN_PROGRESS]: (state) => state.workInProgress = false,
 
-    [mutationTypes.MARK_CONTACT_FORM_AS_SENT]: (state) => state.contactFormSent = true,
+    [mutationTypes.MARK_CONTACT_FORM_AS_SENT]: (state) => state.contactFormSent = true
 };
 
 const actions = {};
@@ -26,5 +26,5 @@ export default new Vuex.Store({
     getters,
     actions,
     mutations,
-    strict: true,
+    strict: true
 })

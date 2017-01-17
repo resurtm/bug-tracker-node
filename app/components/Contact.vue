@@ -1,60 +1,63 @@
 <template>
-    <div id="contact-component" class="col-md-6 col-md-offset-3">
-        <div class="alert alert-success" role="alert" v-if="contactFormSent">
-            <strong>Thank you!</strong>
-            Your message has been sent successfully.
-        </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="alert alert-success" role="alert" v-if="contactFormSent">
+                <strong>Thank you!</strong>
+                Your message has been sent successfully.
+            </div>
 
-        <warning-alert :title="errorTitle" :message="errorMessage"></warning-alert>
+            <warning-alert :title="errorTitle" :message="errorMessage"></warning-alert>
 
-        <form @submit.prevent="submitForm" v-if="!contactFormSent">
-            <h1>Contact Us</h1>
+            <form @submit.prevent="submitForm" v-if="!contactFormSent">
+                <h1>Contact Us</h1>
 
-            <p>Feel free to write us something!</p>
+                <p>Feel free to write us something!</p>
 
-            <div class="form-group" v-bind:class="{'has-error': errors.email.length > 0}">
-                <label for="contact-email" class="control-label">Email address</label>
-                <input type="email" class="form-control" id="contact-email" placeholder="Email" v-model="data.email"/>
-                <span class="help-block">
+                <div class="form-group" v-bind:class="{'has-error': errors.email.length > 0}">
+                    <label for="contact-email" class="control-label">Email address</label>
+                    <input type="email" class="form-control" id="contact-email" placeholder="Email"
+                           v-model="data.email"/>
+                    <span class="help-block">
                     <span v-for="error in errors.email">{{error}}<br/></span>
                 </span>
-            </div>
+                </div>
 
-            <div class="form-group" v-bind:class="{'has-error': errors.name.length > 0}">
-                <label for="contact-name" class="control-label">Your name</label>
-                <input type="text" class="form-control" id="contact-name" placeholder="Name" v-model="data.name"/>
-                <span class="help-block">
+                <div class="form-group" v-bind:class="{'has-error': errors.name.length > 0}">
+                    <label for="contact-name" class="control-label">Your name</label>
+                    <input type="text" class="form-control" id="contact-name" placeholder="Name" v-model="data.name"/>
+                    <span class="help-block">
                     <span v-for="error in errors.name">{{error}}<br/></span>
                 </span>
-            </div>
+                </div>
 
-            <div class="form-group" v-bind:class="{'has-error': errors.message.length > 0}">
-                <label for="contact-message" class="control-label">Message to us</label>
-                <textarea rows="5" class="form-control" id="contact-message" placeholder="Message"
-                          v-model="data.message"></textarea>
-                <span class="help-block">
+                <div class="form-group" v-bind:class="{'has-error': errors.message.length > 0}">
+                    <label for="contact-message" class="control-label">Message to us</label>
+                    <textarea rows="5" class="form-control" id="contact-message" placeholder="Message"
+                              v-model="data.message"></textarea>
+                    <span class="help-block">
                     <span v-for="error in errors.message">{{error}}<br/></span>
                 </span>
-            </div>
+                </div>
 
-            <!--<div class="form-group">
-                <label for="contact-file" class="control-label">Attachment file</label>
-                <input type="file" id="contact-file"/>
-                <p class="help-block">Please attach any file you think would be useful for this inquiry.</p>
-            </div>-->
+                <!--<div class="form-group">
+                    <label for="contact-file" class="control-label">Attachment file</label>
+                    <input type="file" id="contact-file"/>
+                    <p class="help-block">Please attach any file you think would be useful for this inquiry.</p>
+                </div>-->
 
-            <div class="checkbox" v-bind:class="{'has-error': errors.sendCopy.length > 0}">
-                <label class="control-label">
-                    <input type="checkbox" v-model="data.sendCopy"/>
-                    Send copy of the message to my email
-                </label>
-                <span class="help-block">
+                <div class="checkbox" v-bind:class="{'has-error': errors.sendCopy.length > 0}">
+                    <label class="control-label">
+                        <input type="checkbox" v-model="data.sendCopy"/>
+                        Send copy of the message to my email
+                    </label>
+                    <span class="help-block">
                     <span v-for="error in errors.sendCopy">{{error}}<br/></span>
                 </span>
-            </div>
+                </div>
 
-            <button type="submit" class="btn btn-default btn-lg">Send Message</button>
-        </form>
+                <button type="submit" class="btn btn-default btn-lg">Send Message</button>
+            </form>
+        </div>
     </div>
 </template>
 
