@@ -4,7 +4,7 @@
 
         <div class="row">
             <div class="col-md-9">
-                <textarea class="form-control" rows="16"></textarea>
+                <textarea class="form-control" rows="16" v-model="messageHistoryText"></textarea>
             </div>
 
             <div class="col-md-3">
@@ -18,15 +18,15 @@
             </div>
         </div>
 
-        <div class="row compose-message">
+        <form class="row compose-message" @submit.prevent="sendMessage">
             <div class="col-md-9">
-                <textarea class="form-control"></textarea>
+                <input type="input" class="form-control" v-model="messageText"/>
             </div>
 
             <div class="col-md-3">
-                <button class="btn btn-lg btn-primary btn-block">Send Message</button>
+                <button class="btn btn-primary btn-block" type="submit">Send Message</button>
             </div>
-        </div>
+        </form>
     </div>
 </template>
 
@@ -36,19 +36,33 @@
     export default {
         data() {
             return {
+                messageText: '',
+                messageHistory: [],
                 socketioClient: null
             };
         },
+        computed: {
+            messageHistoryText() {
+                return this.$data.messageHistory.join("\n");
+            }
+        },
         mounted() {
-            this.$data.socketioClient = socketio('//' + process.env.SOCKETIO_SERVER_HOST +
-                    ':' + process.env.SOCKETIO_SERVER_PORT);
+            this.$data.socketioClient = socketio(`//${process.env.SOCKETIO_SERVER_HOST}:${process.env.SOCKETIO_SERVER_PORT}`);
+
             this.$data.socketioClient.on('message', (data) => {
-                console.log(data);
+                this.$data.messageHistory.push(data.messageText);
             });
         },
         beforeDestroy() {
-            this.$data.socketioClient = socketio.disconnect();
+            this.$data.socketioClient.disconnect();
             this.$data.socketioClient = null;
+        },
+        methods: {
+            sendMessage() {
+                this.$data.socketioClient.emit('message', {messageText: this.$data.messageText});
+                this.$data.messageHistory.push(this.$data.messageText);
+                this.$data.messageText = '';
+            }
         }
     };
 </script>
